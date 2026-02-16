@@ -33,12 +33,6 @@ const PostList = () => {
         <h1 className="text-3xl font-bold text-gray-90 dark:text-white">
           Latest posts
         </h1>
-        <Link
-          href={`/posts/new`}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md"
-        >
-          + New Post
-        </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {posts.map((post) => (

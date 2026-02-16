@@ -1,4 +1,6 @@
-import PostListPublic from '@/components/PostListPublic';
+import Head from 'next/head';
+import Header from '@/components/Header';
+import PostList from '@/components/PostList';
 import HeaderPublic from '@/components/HeaderPublic';
 
 // --- src/pages/index.tsx ---
@@ -7,8 +9,8 @@ const Home = () => {
     <>
       {/* see previous step */}
       <main>
-        <HeaderPublic />
-        <PostListPublic />
+        <Header />
+        <PostList />
       </main>
     </>
   );

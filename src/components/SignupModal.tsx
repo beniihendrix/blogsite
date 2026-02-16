@@ -1,9 +1,3 @@
-import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Spinner from 'react-bootstrap/Spinner';
-import Alert from 'react-bootstrap/Alert';
 import useSignIn from '@/hooks/useSignIn';
 import { FormEvent, useState } from 'react';
 
@@ -33,42 +27,79 @@ const SignupModal = ({ show = false, handleClose }: Props) => {
     }
   };
 
+  if (!show) return null;
+
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Card body>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4 shadow-lg">
         {alertMessage && (
-          <Alert variant={alertMessage.type}>{alertMessage.message}</Alert>
+          <div
+            className={`mb-4 p-3 rounded-md ${
+              alertMessage.type === 'success'
+                ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+            }`}
+          >
+            {alertMessage.message}
+          </div>
         )}
-        <Form id="login" onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formLoginEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
+        <form id="login" onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+              Email address
+            </label>
+            <input
+              id="email"
               type="email"
               placeholder="Enter email"
               value={email}
               onChange={({ target }) => setEmail(target.value)}
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-          </Form.Group>
+          </div>
 
-          <Button type="submit" disabled={loading}>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md disabled:opacity-50 flex items-center justify-center gap-2"
+          >
             {loading ? (
               <>
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                <span className="visually-hidden">Loading...</span>
+                <svg
+                  className="animate-spin h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
+                </svg>
+                <span>Loading...</span>
               </>
             ) : (
               <span>Login</span>
             )}
-          </Button>
-        </Form>
-      </Card>
-    </Modal>
+          </button>
+        </form>
+        <button
+          onClick={handleClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
   );
 };
 

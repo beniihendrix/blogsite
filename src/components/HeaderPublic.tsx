@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import SignupModal from "./SignupModal";
 import { createClient } from '@/lib/supabase/client';
 import { User } from '@supabase/supabase-js';
-import useSignIn from "@/hooks/useSignIn";
 
 
 // --- src/components/Header.tsx ---
@@ -25,7 +24,9 @@ const Header = () => {
     };
   }, []);
 
-  const { signOut } = useSignIn();
+  const handleLogout = () => {
+    // logout logic will go here
+  };
   return (
     <>
       <SignupModal show={showModal} handleClose={() => setShowModal(false)} />
@@ -35,23 +36,6 @@ const Header = () => {
             <a href="/" className="text-xl font-bold text-gray-900 dark:text-white">
               Alessandro's Headspace
             </a>
-            <div className="absolute right-0 flex items-center gap-4">
-              {user ? (
-                <button
-                  onClick={signOut}
-                  className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600 font-medium"
-                >
-                  Logout
-                </button>
-              ) : (
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md"
-                >
-                  Login
-                </button>
-              )}
-            </div>
           </div>
         </div>
       </nav>

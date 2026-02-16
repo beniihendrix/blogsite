@@ -1,11 +1,8 @@
 import Header from '@/components/Header';
 import Head from 'next/head';
-import Container from 'react-bootstrap/Container';
 import usePosts from '@/hooks/usePosts';
 import { useRouter } from 'next/router';
 import PostEditForm from '@/components/PostEditForm';
-import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import Link from 'next/link';
 
@@ -36,17 +33,19 @@ const NewPostPage = () => {
       </Head>
       <main>
         <Header />
-        <Container>
-          <Link href="/" legacyBehavior>
-            <Button variant="link">{'<'}Back to all posts</Button>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Link href="/">
+            <button>{'<'}Back to all posts</button>
           </Link>
 
           {alertMessage && (
-            <Alert variant={alertMessage.type}>{alertMessage.message}</Alert>
+            <span className={`alert alert-${alertMessage.type}`}>
+              {alertMessage.message}
+            </span>
           )}
           <h1>New Post</h1>
           <PostEditForm saveForm={handleSubmit} />
-        </Container>
+        </div>
       </main>
     </>
   );
